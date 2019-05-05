@@ -1,4 +1,4 @@
-import {Controller, Get} from '@nestjs/common';
+import {Controller, Get, Post, Body, Request} from '@nestjs/common';
 import {AppService} from './app.service';
 
 @Controller()
@@ -10,4 +10,11 @@ export class AppController {
     getAllCoordinates(){
        return this.appService.getCoordinates();
     }
+
+
+    @Post()
+    checkAnagrams(@Body() body, @Request() req): string {
+        return this.appService.isAnagram(body.word1, body.word2);
+    }
+
 }
