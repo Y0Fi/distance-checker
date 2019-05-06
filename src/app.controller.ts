@@ -1,5 +1,6 @@
-import {Controller, Get, Post, Body, Request} from '@nestjs/common';
+import {Controller, Get, Post, Body} from '@nestjs/common';
 import {AppService} from './app.service';
+import {IDistances} from './shared-data/coordinate.interface';
 
 @Controller()
 export class AppController {
@@ -7,14 +8,12 @@ export class AppController {
     }
 
     @Get()
-    getAllCoordinates(){
-       return this.appService.getCoordinates();
+    getDistances(): IDistances[] {
+        return this.appService.getDistances();
     }
-
 
     @Post()
-    checkAnagrams(@Body() body, @Request() req): string {
-        return this.appService.isAnagram(body.word1, body.word2);
+    checkAnagrams(@Body() body): string {
+        return this.appService.isAnagram(body.words);
     }
-
 }
