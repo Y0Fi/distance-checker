@@ -15,7 +15,10 @@ export class AppService {
             .map(item => ({
                 name: item.name,
                 distance: this.calculateDistance(item.latitude, item.longitude),
-            }));
+            }))
+            .sort((firstDistance, nextDistance) => {
+                return firstDistance.distance - nextDistance.distance;
+            });
     }
 
     private getCoordinates(): ICoordinates[] {
@@ -34,13 +37,11 @@ export class AppService {
             Math.cos(this.officeLatitude * this.PI) * Math.cos(latitude * this.PI) *
             (1 - Math.cos((longitude - this.officeLongitude) * this.PI)) / 2;
 
-        return 12742 * Math.asin(Math.sqrt(haversineFormula));
+        return 12742000 * Math.asin(Math.sqrt(haversineFormula)); // count in metres
     }
 
-    isAnagram(words: string[]): string {
-        const result = words
-            .every((item, index, array) => index === 0 || this.reformatWord(item) === this.reformatWord(array[index - 1]));
-        return result ? 'All words are anagrams' : 'Not all words are anagrams';
+    isAnagram(words: string[]): boolean {
+        return words.every((item, index, array) => index === 0 || this.reformatWord(item) === this.reformatWord(array[index - 1]));
     }
 
     private reformatWord(str) {

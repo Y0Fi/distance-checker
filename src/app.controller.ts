@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body} from '@nestjs/common';
+import {Controller, Get, Post, Body, Response,} from '@nestjs/common';
 import {AppService} from './app.service';
 import {IDistances} from './shared-data/coordinate.interface';
 
@@ -13,7 +13,8 @@ export class AppController {
     }
 
     @Post()
-    checkAnagrams(@Body() body): string {
-        return this.appService.isAnagram(body.words);
+    checkAnagrams(@Body() body, @Response() res): string {
+        const result = this.appService.isAnagram(body.words);
+        return res.status(result? 200 : 420).send(result ? 'All words are anagrams' : 'Not all words are anagrams');
     }
 }
