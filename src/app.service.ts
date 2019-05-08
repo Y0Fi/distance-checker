@@ -37,7 +37,7 @@ export class AppService {
             Math.cos(this.officeLatitude * this.PI) * Math.cos(latitude * this.PI) *
             (1 - Math.cos((longitude - this.officeLongitude) * this.PI)) / 2;
 
-        return 12742000 * Math.asin(Math.sqrt(haversineFormula)); // count in metres
+        return 12742 * Math.asin(Math.sqrt(haversineFormula)); // count in metres
     }
 
     isAnagram(words: string[]): boolean {
