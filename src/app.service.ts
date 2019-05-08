@@ -23,7 +23,6 @@ export class AppService {
 
     private getCoordinates(): ICoordinates[] {
         const csvString = fs.readFileSync(path.resolve('./src/shared-data/location_list.csv'), 'UTF8');
-
         return csvString.split('\r\n')
             .splice(1)
             .map(item => {
